@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+	<meta name="theme-color" content="#ffffff" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	<meta name="description" content="라이프타이밍 — 모바일 웹" />
+	
+	<!-- Flutter base href -->
+	<base href="$FLUTTER_BASE_HREF">
+	
+	<title>라이프타이밍</title>
+	<link rel="stylesheet" href="/assets/css/styles.css" />
+	<link rel="icon" href="/assets/favicon.ico" />
+	
+	<!-- iOS meta tags & icons -->
+	<meta name="apple-mobile-web-app-title" content="라이프타이밍" />
+	<link rel="apple-touch-icon" href="icons/Icon-192.png" />
+	<link rel="icon" type="image/png" href="favicon.png"/>
+	<!-- manifest.json은 정적 서버(5500)에서 404가 발생할 수 있어 임시 비활성화 -->
+	<!-- <link rel="manifest" href="manifest.json" /> -->
+	
+</head>
+<body>
+	<!-- 전통적인 웹 페이지 콘텐츠 -->
+	<header class="site-header">
+		<div class="container header-inner">
+			<a class="brand" href="/">라이프타이밍</a>
+			<div class="header-actions">
+				<!-- 로그인/로그아웃 버튼 영역 -->
+				<div id="authButtonsHeader" style="display: flex; align-items: center; gap: 8px;">
+					<!-- 로그인 버튼 (로그인 안 됨) -->
+					<a href="/auth/login.html" id="loginButtonHeader" class="btn primary">로그인</a>
+					<!-- 로그아웃 버튼 (로그인 됨) -->
+					<span id="userInfo" style="display: none; margin-right: 8px; font-size: 14px; color: var(--fg);"></span>
+					<button id="logoutButtonHeader" class="btn plain" style="display: none;">로그아웃</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="container section" style="padding-bottom: 60px;">
+		<h1>라이프타이밍</h1>
+		<p>당신의 운명을 알아보세요</p>
+		
+		<div class="action-bar" style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+			<a href="/service/saju/" class="btn primary wide">사주 보기</a>
+			<a href="/service/goonghap.html" class="btn primary wide">궁합 보기</a>
+			<a href="/service/fortune.html" class="btn primary wide">운세 보기</a>
+		</div>
+	</main>
+
+	<footer class="site-footer" style="border-top: none !important; margin-top: 0;">
+		<div class="container footer-inner">
+			<div style="text-align: left; padding: 8px 0 20px; margin-top: 0;">
+				<div style="margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 12px; border-top: none;">
+					<a href="/about.html" style="color: var(--muted); text-decoration: none; font-size: 13px;">소개</a>
+					<span style="color: var(--muted); font-size: 13px;">|</span>
+					<a href="/terms.html" style="color: var(--muted); text-decoration: none; font-size: 13px;">이용약관</a>
+					<span style="color: var(--muted); font-size: 13px;">|</span>
+					<a href="/privacy.html" style="color: var(--muted); text-decoration: none; font-size: 13px;">개인정보처리방침</a>
+					<span style="color: var(--muted); font-size: 13px;">|</span>
+					<a href="/service/payment.html" style="color: var(--muted); text-decoration: none; font-size: 13px;">구매</a>
+					<span style="color: var(--muted); font-size: 13px;">|</span>
+					<a href="/contact.html" style="color: var(--muted); text-decoration: none; font-size: 13px;">문의</a>
+				</div>
+				<small style="display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; line-height: 1.8;">
+					주식회사 라이프타이밍  |  대표 조보람<br>
+					사업자등록번호 186-86-03737<br>
+					서울특별시 강남구 삼성로 301, 제비03-디08호(대치동)<br>
+					life.timing.inc@gmail.com<br>
+					전화 0507-1334-2635
+				</small>
+				<small style="display: block; margin-top: 12px; color: var(--muted); font-size: 12px;">
+					© <span id="year"></span> 라이프타이밍
+				</small>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Flutter 부트스트랩 스크립트는 정적 서버(5500)에서 미존재로 404가 발생할 수 있어 임시 비활성화 -->
+	<!-- <script src="flutter_bootstrap.js" async></script> -->
+
+	<script src="/assets/js/main.js"></script>
+	<script>
+		// 정적 서버(5500)에서 열렸으면 백엔드(8000)로 API 요청을 보냄
+		const isStaticServer = window.location.port === '5500';
+		const backendDomain = isStaticServer ? 'http://localhost:8000' : window.location.origin;
+
+		// 연도 자동 업데이트
+		document.getElementById('year').textContent = new Date().getFullYear();
+
+		// 로그인 상태 확인 및 버튼 표시 (헤더용 버튼)
+		async function checkAuthStatus() {
+			try {
+				const response = await fetch(backendDomain + '/api/auth/status', {
+					credentials: 'include'
+				});
+				const data = await response.json();
+				
+				// 헤더용 버튼 (전통적인 웹)
+				const loginButtonHeader = document.getElementById('loginButtonHeader');
+				const logoutButtonHeader = document.getElementById('logoutButtonHeader');
+				const userInfo = document.getElementById('userInfo');
+				
+				if (data.logged_in) {
+					// 로그인된 경우
+					loginButtonHeader.style.display = 'none';
+					logoutButtonHeader.style.display = 'block';
+					userInfo.textContent = data.user_name ? `${data.user_name}님` : '사용자';
+					userInfo.style.display = 'inline';
+				} else {
+					// 로그인되지 않은 경우
+					loginButtonHeader.style.display = 'block';
+					logoutButtonHeader.style.display = 'none';
+					userInfo.style.display = 'none';
+				}
+			} catch (error) {
+				console.error('로그인 상태 확인 실패:', error);
+				// 오류 시 로그인 버튼 표시
+				document.getElementById('loginButtonHeader').style.display = 'block';
+			}
+		}
+		
+		// 로그아웃 처리 (헤더용 버튼)
+		document.getElementById('logoutButtonHeader').addEventListener('click', async function() {
+			try {
+				const response = await fetch(backendDomain + '/api/auth/logout', {
+					method: 'POST',
+					credentials: 'include'
+				});
+				const data = await response.json();
+				alert(data.message || '로그아웃되었습니다');
+				location.reload();
+			} catch (error) {
+				console.error('로그아웃 실패:', error);
+				alert('로그아웃 중 오류가 발생했습니다');
+			}
+		});
+		
+		// 사주 버튼 클릭 시 로그인 체크
+		document.querySelector('a[href="/service/saju/"]').addEventListener('click', async function(e) {
+			const response = await fetch(backendDomain + '/api/auth/status', {
+				credentials: 'include'
+			});
+			const data = await response.json();
+			
+			if (!data.logged_in) {
+				e.preventDefault();
+				// 로그인 페이지는 백엔드에서 서빙되는 경로를 사용
+				location.href = backendDomain + '/auth/login.html?redirect=/service/saju/';
+			}
+		});
+		
+		// 페이지 로드 시 로그인 상태 확인
+		checkAuthStatus();
+	</script>
+</body>
+</html>
