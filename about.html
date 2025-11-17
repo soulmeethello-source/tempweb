@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+	<meta name="theme-color" content="#ffffff" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	<meta name="description" content="라이프타이밍 — 회사 소개" />
+	
+	<title>회사 소개 — 라이프타이밍</title>
+	<link rel="stylesheet" href="/assets/css/styles.css" />
+	<link rel="icon" href="/assets/favicon.ico" />
+	
+	<!-- iOS meta tags & icons -->
+	<meta name="apple-mobile-web-app-title" content="라이프타이밍" />
+	<link rel="apple-touch-icon" href="icons/Icon-192.png" />
+	<link rel="icon" type="image/png" href="favicon.png"/>
+	<link rel="manifest" href="manifest.json" />
+	
+</head>
+<body>
+	<header class="site-header">
+		<div class="container header-inner">
+			<a class="brand" href="/">라이프타이밍</a>
+			<div class="header-actions">
+				<!-- 로그인/로그아웃 버튼 영역 -->
+				<div id="authButtonsHeader" style="display: flex; align-items: center; gap: 8px;">
+					<!-- 로그인 버튼 (로그인 안 됨) -->
+					<a href="/auth/login.html" id="loginButtonHeader" class="btn primary">로그인</a>
+					<!-- 로그아웃 버튼 (로그인 됨) -->
+					<span id="userInfo" style="display: none; margin-right: 8px; font-size: 14px; color: var(--fg);"></span>
+					<button id="logoutButtonHeader" class="btn plain" style="display: none;">로그아웃</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="container section">
+		<style>
+			.about-header {
+				text-align: center;
+				margin-bottom: 48px;
+			}
+			.about-logo {
+				max-width: 200px;
+				height: auto;
+				margin-bottom: 24px;
+			}
+			.about-company-name {
+				font-size: clamp(24px, 4vw, 32px);
+				font-weight: 700;
+				margin-bottom: 8px;
+				color: var(--fg);
+			}
+			.about-company-name-en {
+				font-size: clamp(16px, 2.5vw, 20px);
+				color: var(--muted);
+				margin-bottom: 24px;
+			}
+			.about-tagline {
+				font-size: clamp(18px, 3vw, 22px);
+				font-weight: 500;
+				color: var(--brand);
+				line-height: 1.6;
+				margin-bottom: 32px;
+			}
+			.about-intro {
+				font-size: clamp(16px, 2.5vw, 18px);
+				line-height: 1.8;
+				color: var(--fg);
+				margin-bottom: 48px;
+			}
+			.about-section {
+				margin-bottom: 48px;
+			}
+			.about-section-title {
+				font-size: clamp(20px, 3.5vw, 26px);
+				font-weight: 700;
+				margin-bottom: 16px;
+				color: var(--fg);
+				border-bottom: 2px solid var(--brand);
+				padding-bottom: 8px;
+			}
+			.about-section-subtitle {
+				font-size: clamp(16px, 2.5vw, 18px);
+				font-weight: 600;
+				margin-top: 24px;
+				margin-bottom: 12px;
+				color: var(--fg);
+			}
+			.about-content {
+				font-size: clamp(15px, 2.2vw, 17px);
+				line-height: 1.8;
+				color: var(--fg);
+				margin-bottom: 16px;
+			}
+			.about-list {
+				list-style: none;
+				padding-left: 0;
+				margin: 24px 0;
+			}
+			.about-list li {
+				padding: 12px 0;
+				border-bottom: 1px solid var(--sep);
+			}
+			.about-list li:last-child {
+				border-bottom: none;
+			}
+			.about-list-title {
+				font-weight: 600;
+				color: var(--brand);
+				margin-bottom: 4px;
+			}
+			.about-list-desc {
+				color: var(--muted);
+				font-size: 0.95em;
+			}
+			.about-company-info {
+				background: var(--bg-alt);
+				padding: 24px;
+				border-radius: 8px;
+				margin-top: 32px;
+			}
+			.about-company-info-item {
+				margin: 12px 0;
+				line-height: 1.8;
+			}
+			.about-company-info-label {
+				font-weight: 600;
+				color: var(--fg);
+				display: inline-block;
+				min-width: 140px;
+			}
+			.about-company-info-value {
+				color: var(--muted);
+			}
+			@media (max-width: 767px) {
+				.about-logo {
+					max-width: 150px;
+				}
+				.about-company-info {
+					padding: 20px;
+				}
+				.about-company-info-label {
+					display: block;
+					margin-bottom: 4px;
+				}
+			}
+		</style>
+
+		<div class="about-header">
+			<img src="/assets/images/lifetiming.png" alt="라이프타이밍 로고" class="about-logo">
+			<div class="about-company-name">주식회사 라이프타이밍</div>
+			<div class="about-company-name-en">Life Timing Inc.</div>
+			<div class="about-tagline">
+				"우리는 모든 사람이 자기 삶의 가장 빛나는 '때'를 발견하고, 그 기회를 붙잡도록 돕습니다."
+			</div>
+		</div>
+
+		<div class="about-intro">
+			주식회사 라이프타이밍은 '운'이라는 보이지 않는 영역을 '데이터'와 '전략'이라는 가장 실용적인 도구로 해석합니다. 우리는 당신의 삶이 비효율적인 노력과 막연한 불안이 아닌, 가장 효율적인 선택과 단단한 확신으로 채워지기를 바랍니다.
+		</div>
+
+		<div class="about-section">
+			<h2 class="about-section-title">1. 우리의 사명과 비전 (Mission & Vision)</h2>
+			<div class="about-section-subtitle">"왜 이 일을 하는가?"</div>
+			
+			<div class="about-content">
+				<strong>사명 (Mission):</strong> 사람이 자기 삶의 타이밍을 읽고 더 효율적인 인생을 선택할 수 있게 만든다.
+			</div>
+			
+			<div class="about-content">
+				<strong>비전 (Vision):</strong> 데이터로 증명하는 가장 신뢰받는 삶의 내비게이션 플랫폼을 구축한다.
+			</div>
+		</div>
+
+		<div class="about-section">
+			<h2 class="about-section-title">2. 우리가 특별한 이유 (Our Core Competency)</h2>
+			<div class="about-section-subtitle">"전통의 통찰력, 현대의 기술력"</div>
+			
+			<div class="about-content">
+				라이프타이밍의 독보적인 전문성은 27년간의 깊이 있는 '실전 노하우'와 10년간의 '데이터 기획력'이 만나는 지점에서 나옵니다.
+			</div>
+			
+			<div class="about-content">
+				<strong>검증된 통찰 (Proven Insight):</strong> 27년간 사주와 타로 기반의 운세 상담 현장에서 수많은 삶의 데이터를 축적하고, 그 흐름을 실전으로 증명해 온 마스터의 노하우를 기반으로 합니다.
+			</div>
+			
+			<div class="about-content">
+				<strong>MZ세대의 재해석 (Modern Reinterpretation):</strong> 10년차 전문가 팀이 이 방대한 데이터를 MZ세대의 언어와 감각으로 완벽하게 재해석했습니다. 우리는 '미신'이 아닌 '전략'으로, '운'이 아닌 '효율'로 당신의 삶을 컨설팅합니다.
+			</div>
+		</div>
+
+		<div class="about-section">
+			<h2 class="about-section-title">3. 핵심 서비스 (Core Services)</h2>
+			<div class="about-content">
+				우리의 사명은 다음과 같은 서비스를 통해 구체화됩니다.
+			</div>
+			
+			<ul class="about-list">
+				<li>
+					<div class="about-list-title">[사주 갓생 캘린더 (신년운세)]</div>
+					<div class="about-list-desc">개인의 고유한 사주(운의 흐름)를 분석하여, 사용자의 '갓생' 목표 달성을 위한 최적의 타이밍과 행동 지침을 제안하는 개인 맞춤형 지능형 캘린더입니다.</div>
+				</li>
+				<li>
+					<div class="about-list-title">[소울밋 (SoulMeet)]</div>
+					<div class="about-list-desc">"내 갓생 바이브에 맞는 친구만!" 당신의 성향과 라이프스타일 리듬에 꼭 맞는 친구와 소울메이트를 연결합니다.</div>
+				</li>
+				<li>
+					<div class="about-list-title">[프리미엄 결혼 정보]</div>
+					<div class="about-list-desc">"2026년 결혼운 완벽 대비!" 사주 데이터를 기반으로 인생의 중요한 타이밍에 최적의 파트너를 만날 수 있도록 돕는 결혼 정보 서비스를 제공합니다.</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="about-section">
+			<h2 class="about-section-title">4. 회사 정보 (Company Information)</h2>
+			<div class="about-company-info">
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">상호:</span>
+					<span class="about-company-info-value">주식회사 라이프타이밍</span>
+				</div>
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">대표:</span>
+					<span class="about-company-info-value">조보람</span>
+				</div>
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">사업자등록번호:</span>
+					<span class="about-company-info-value">186-86-03737</span>
+				</div>
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">주소:</span>
+					<span class="about-company-info-value">서울특별시 강남구 삼성로 301, 제비03-디08호(대치동)</span>
+				</div>
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">대표 이메일:</span>
+					<span class="about-company-info-value">life.timing.inc@gmail.com</span>
+				</div>
+				<div class="about-company-info-item">
+					<span class="about-company-info-label">고객센터:</span>
+					<span class="about-company-info-value">0507-1334-2635</span>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer class="site-footer" style="border-top: none;">
+		<div class="container footer-inner">
+			<div style="text-align: left; padding: 24px 0 20px; margin-top: 0;">
+				<small style="display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; line-height: 1.8;">
+					주식회사 라이프타이밍  |  대표 조보람<br>
+					사업자등록번호 186-86-03737<br>
+					서울특별시 강남구 삼성로 301, 제비03-디08호(대치동)<br>
+					life.timing.inc@gmail.com<br>
+					전화 0507-1334-2635
+				</small>
+				<small style="display: block; margin-top: 12px; color: var(--muted); font-size: 12px;">
+					© <span id="year"></span> 라이프타이밍
+				</small>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/main.js"></script>
+	<script>
+		// 연도 자동 업데이트
+		document.getElementById('year').textContent = new Date().getFullYear();
+
+		// 로그인 상태 확인 및 버튼 표시
+		async function checkAuthStatus() {
+			try {
+				const response = await fetch('/api/auth/status', {
+					credentials: 'include'
+				});
+				const data = await response.json();
+				
+				const loginButtonHeader = document.getElementById('loginButtonHeader');
+				const logoutButtonHeader = document.getElementById('logoutButtonHeader');
+				const userInfo = document.getElementById('userInfo');
+				
+				if (data.logged_in) {
+					loginButtonHeader.style.display = 'none';
+					logoutButtonHeader.style.display = 'block';
+					userInfo.textContent = data.user_name ? `${data.user_name}님` : '사용자';
+					userInfo.style.display = 'inline';
+				} else {
+					loginButtonHeader.style.display = 'block';
+					logoutButtonHeader.style.display = 'none';
+					userInfo.style.display = 'none';
+				}
+			} catch (error) {
+				console.error('로그인 상태 확인 실패:', error);
+				document.getElementById('loginButtonHeader').style.display = 'block';
+			}
+		}
+		
+		// 로그아웃 처리
+		const logoutButton = document.getElementById('logoutButtonHeader');
+		if (logoutButton) {
+			logoutButton.addEventListener('click', async function() {
+				try {
+					const response = await fetch('/api/auth/logout', {
+						method: 'POST',
+						credentials: 'include'
+					});
+					const data = await response.json();
+					alert(data.message || '로그아웃되었습니다');
+					location.reload();
+				} catch (error) {
+					console.error('로그아웃 실패:', error);
+					alert('로그아웃 중 오류가 발생했습니다');
+				}
+			});
+		}
+		
+		// 페이지 로드 시 로그인 상태 확인
+		checkAuthStatus();
+	</script>
+</body>
+</html>
+

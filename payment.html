@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="theme-color" content="#007AFF" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<title>만능열쇠 구매 · 라이프타이밍</title>
+		<link rel="stylesheet" href="/assets/css/styles.css" />
+		<link rel="icon" href="/assets/favicon.ico" />
+		<style>
+			.product-selection {
+				max-width: 600px;
+				margin: 0 auto;
+			}
+			.product-card {
+				background: var(--surface);
+				border: 2px solid var(--sep);
+				border-radius: 12px;
+				padding: 24px;
+				margin-bottom: 16px;
+				cursor: pointer;
+				transition: all 0.2s;
+				position: relative;
+			}
+			.product-card:hover {
+				border-color: var(--brand);
+				box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+			}
+			.product-card.selected {
+				border-color: var(--brand);
+				background: rgba(0, 122, 255, 0.05);
+			}
+			.product-card.best {
+				border-color: #FF6B6B;
+			}
+			.product-card.best::before {
+				content: 'BEST';
+				position: absolute;
+				top: -10px;
+				right: 20px;
+				background: #FF6B6B;
+				color: white;
+				padding: 4px 12px;
+				border-radius: 12px;
+				font-size: 0.75rem;
+				font-weight: 700;
+			}
+			.product-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				margin-bottom: 12px;
+			}
+			.product-title {
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: var(--fg);
+			}
+			.product-price-wrapper {
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+			}
+			.product-price-row {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 0.875rem;
+			}
+			.product-original-price {
+				font-size: 0.875rem;
+				color: var(--muted);
+				text-decoration: line-through;
+				margin-bottom: 4px;
+			}
+			.product-discount-amount {
+				font-size: 0.875rem;
+				color: #FF6B6B;
+				font-weight: 600;
+				margin-bottom: 4px;
+			}
+			.product-discount-price {
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: var(--brand);
+			}
+			.product-discount-label {
+				font-size: 0.875rem;
+				color: var(--muted);
+				margin-top: 4px;
+			}
+			.product-emoji {
+				font-size: 1.5rem;
+				margin-right: 8px;
+			}
+			.product-description {
+				color: var(--muted);
+				font-size: 0.875rem;
+				line-height: 1.6;
+			}
+			.select-button {
+				width: 100%;
+				margin-top: 32px;
+				padding: 16px;
+				font-size: 1rem;
+				font-weight: 600;
+			}
+			.select-button:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="container header-inner">
+				<a class="brand" href="/">라이프타이밍</a>
+				<a href="/service/saju/" class="btn plain">← 뒤로</a>
+			</div>
+		</header>
+		<main class="container section">
+			<h1>💰 만능열쇠 구매</h1>
+			<p style="text-align: center; color: var(--muted); margin-bottom: 32px;">상품을 선택하세요</p>
+			
+			<div class="product-selection">
+				<!-- 만능열쇠 1개 -->
+				<div class="product-card" data-product="1" data-price="9900" data-original="29900" data-emoji="🔑">
+					<div class="product-header">
+						<div>
+							<div class="product-title"><span class="product-emoji">🔑</span>만능열쇠 1개</div>
+						</div>
+						<div class="product-price-wrapper">
+							<div class="product-price-row">
+								<span style="color: var(--muted); text-decoration: line-through;">상품 금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<span style="color: var(--muted); text-decoration: line-through;">₩ 29,900</span>
+							</div>
+							<div class="product-price-row">
+								<span style="color: #FF6B6B; font-weight: 600;">할인</span>
+								<span style="color: #FF6B6B; font-weight: 600;">- ₩20,000</span>
+							</div>
+							<div class="product-price-row">
+								<span></span>
+								<span style="color: var(--brand); font-size: 1.5rem; font-weight: 700;">₩9,900</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 만능열쇠 2개 (BEST) -->
+				<div class="product-card best selected" data-product="2" data-price="18810" data-original="59800" data-emoji="🔑🔑">
+					<div class="product-header">
+						<div>
+							<div class="product-title"><span class="product-emoji">🔑🔑</span>만능열쇠 2개</div>
+						</div>
+						<div class="product-price-wrapper">
+							<div class="product-price-row">
+								<span style="color: var(--muted); text-decoration: line-through;">상품 금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<span style="color: var(--muted); text-decoration: line-through;">₩ 59,800</span>
+							</div>
+							<div class="product-price-row">
+								<span style="color: #FF6B6B; font-weight: 600;">할인</span>
+								<span style="color: #FF6B6B; font-weight: 600;">- ₩40,990</span>
+							</div>
+							<div class="product-price-row">
+								<span></span>
+								<span style="color: var(--brand); font-size: 1.5rem; font-weight: 700;">₩18,810</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 만능열쇠 3개 -->
+				<div class="product-card" data-product="3" data-price="27730" data-original="89700" data-emoji="🔑🔑🔑">
+					<div class="product-header">
+						<div>
+							<div class="product-title"><span class="product-emoji">🔑🔑🔑</span>만능열쇠 3개</div>
+						</div>
+						<div class="product-price-wrapper">
+							<div class="product-price-row">
+								<span style="color: var(--muted); text-decoration: line-through;">상품 금액&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+								<span style="color: var(--muted); text-decoration: line-through;">₩ 89,700</span>
+							</div>
+							<div class="product-price-row">
+								<span style="color: #FF6B6B; font-weight: 600;">할인</span>
+								<span style="color: #FF6B6B; font-weight: 600;">- ₩61,970</span>
+							</div>
+							<div class="product-price-row">
+								<span></span>
+								<span style="color: var(--brand); font-size: 1.5rem; font-weight: 700;">₩27,730</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 선택 버튼 -->
+				<button id="selectButton" class="btn primary select-button" disabled>
+					상품을 선택하세요
+				</button>
+			</div>
+		</main>
+		<footer class="site-footer">
+			<div class="container footer-inner">
+				<small>© <span id="year"></span> 라이프타이밍</small>
+			</div>
+		</footer>
+		<script src="/assets/js/main.js"></script>
+		<script>
+			// 백엔드 도메인 설정
+			// 개발 환경: localhost:8000 또는 정적 서버(5500)에서 열렸을 때
+			// 프로덕션: api.lifetiming.kr 또는 window.location.origin
+			const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+			const isStaticServer = window.location.port === '5500';
+			const isProduction = window.location.hostname.includes('lifetiming.kr') || window.location.hostname.includes('api.lifetiming.kr');
+			
+			let backendDomain;
+			if (isLocalhost || isStaticServer) {
+				// 개발 환경: localhost:8000 사용
+				backendDomain = 'http://localhost:8000';
+			} else if (isProduction) {
+				// 프로덕션: API 서버 도메인 사용
+				backendDomain = 'https://api.lifetiming.kr';
+			} else {
+				// 기타: 현재 origin 사용
+				backendDomain = window.location.origin;
+			}
+
+			// 연도 자동 업데이트
+			document.getElementById('year').textContent = new Date().getFullYear();
+
+			let selectedProduct = null;
+
+			// 상품 카드 클릭 이벤트
+			document.querySelectorAll('.product-card').forEach(card => {
+				card.addEventListener('click', function() {
+					// 모든 카드에서 selected 클래스 제거
+					document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+					// 클릭한 카드에 selected 클래스 추가
+					this.classList.add('selected');
+					
+					// 선택된 상품 정보 저장
+					selectedProduct = {
+						count: this.dataset.product,
+						price: parseInt(this.dataset.price),
+						originalPrice: parseInt(this.dataset.original),
+						discount: parseInt(this.dataset.original) - parseInt(this.dataset.price),
+						emoji: this.dataset.emoji
+					};
+					
+					// 버튼 활성화 및 텍스트 변경
+					const button = document.getElementById('selectButton');
+					button.disabled = false;
+					button.textContent = `만능열쇠 ${selectedProduct.count}개 선택 ${selectedProduct.emoji} ₩${selectedProduct.price.toLocaleString()}원 결제하기`;
+				});
+			});
+
+			// 선택 버튼 클릭 이벤트
+			document.getElementById('selectButton').addEventListener('click', function() {
+				if (!selectedProduct) {
+					alert('상품을 선택해주세요.');
+					return;
+				}
+				
+				// 결제 페이지로 이동 (선택된 상품 정보를 쿼리 파라미터로 전달)
+				const params = new URLSearchParams({
+					product: selectedProduct.count,
+					price: selectedProduct.price,
+					original: selectedProduct.originalPrice,
+					discount: selectedProduct.discount,
+					emoji: selectedProduct.emoji
+				});
+				
+				// 백엔드 도메인 사용 (정적 서버에서 열렸으면 백엔드로 리다이렉트)
+				const checkoutUrl = `${backendDomain}/service/payment/checkout.html?${params.toString()}`;
+				console.log('결제 페이지로 이동:', checkoutUrl);
+				window.location.href = checkoutUrl;
+			});
+		</script>
+	</body>
+</html>

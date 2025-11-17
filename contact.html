@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+	<meta name="theme-color" content="#ffffff" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+	<meta name="description" content="라이프타이밍 — 문의하기" />
+	
+	<title>문의하기 — 라이프타이밍</title>
+	<link rel="stylesheet" href="/assets/css/styles.css" />
+	<link rel="icon" href="/assets/favicon.ico" />
+	
+	<!-- iOS meta tags & icons -->
+	<meta name="apple-mobile-web-app-title" content="라이프타이밍" />
+	<link rel="apple-touch-icon" href="icons/Icon-192.png" />
+	<link rel="icon" type="image/png" href="favicon.png"/>
+	<link rel="manifest" href="manifest.json" />
+	
+</head>
+<body>
+	<header class="site-header">
+		<div class="container header-inner">
+			<a class="brand" href="/">라이프타이밍</a>
+			<div class="header-actions">
+				<!-- 로그인/로그아웃 버튼 영역 -->
+				<div id="authButtonsHeader" style="display: flex; align-items: center; gap: 8px;">
+					<!-- 로그인 버튼 (로그인 안 됨) -->
+					<a href="/auth/login.html" id="loginButtonHeader" class="btn primary">로그인</a>
+					<!-- 로그아웃 버튼 (로그인 됨) -->
+					<span id="userInfo" style="display: none; margin-right: 8px; font-size: 14px; color: var(--fg);"></span>
+					<button id="logoutButtonHeader" class="btn plain" style="display: none;">로그아웃</button>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="container section">
+		<h1>문의하기</h1>
+		<!-- 내용 추가 예정 -->
+	</main>
+
+	<footer class="site-footer" style="border-top: none;">
+		<div class="container footer-inner">
+			<div style="text-align: left; padding: 24px 0 20px; margin-top: 0;">
+				<small style="display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; line-height: 1.8;">
+					주식회사 라이프타이밍  |  대표 조보람<br>
+					사업자등록번호 186-86-03737<br>
+					서울특별시 강남구 삼성로 301, 제비03-디08호(대치동)<br>
+					life.timing.inc@gmail.com<br>
+					전화 0507-1334-2635
+				</small>
+				<small style="display: block; margin-top: 12px; color: var(--muted); font-size: 12px;">
+					© <span id="year"></span> 라이프타이밍
+				</small>
+			</div>
+		</div>
+	</footer>
+
+	<script src="/assets/js/main.js"></script>
+	<script>
+		// 연도 자동 업데이트
+		document.getElementById('year').textContent = new Date().getFullYear();
+
+		// 로그인 상태 확인 및 버튼 표시
+		async function checkAuthStatus() {
+			try {
+				const response = await fetch('/api/auth/status', {
+					credentials: 'include'
+				});
+				const data = await response.json();
+				
+				const loginButtonHeader = document.getElementById('loginButtonHeader');
+				const logoutButtonHeader = document.getElementById('logoutButtonHeader');
+				const userInfo = document.getElementById('userInfo');
+				
+				if (data.logged_in) {
+					loginButtonHeader.style.display = 'none';
+					logoutButtonHeader.style.display = 'block';
+					userInfo.textContent = data.user_name ? `${data.user_name}님` : '사용자';
+					userInfo.style.display = 'inline';
+				} else {
+					loginButtonHeader.style.display = 'block';
+					logoutButtonHeader.style.display = 'none';
+					userInfo.style.display = 'none';
+				}
+			} catch (error) {
+				console.error('로그인 상태 확인 실패:', error);
+				document.getElementById('loginButtonHeader').style.display = 'block';
+			}
+		}
+		
+		// 로그아웃 처리
+		const logoutButton = document.getElementById('logoutButtonHeader');
+		if (logoutButton) {
+			logoutButton.addEventListener('click', async function() {
+				try {
+					const response = await fetch('/api/auth/logout', {
+						method: 'POST',
+						credentials: 'include'
+					});
+					const data = await response.json();
+					alert(data.message || '로그아웃되었습니다');
+					location.reload();
+				} catch (error) {
+					console.error('로그아웃 실패:', error);
+					alert('로그아웃 중 오류가 발생했습니다');
+				}
+			});
+		}
+		
+		// 페이지 로드 시 로그인 상태 확인
+		checkAuthStatus();
+	</script>
+</body>
+</html>
+
